@@ -9,17 +9,31 @@ const JobsUI = () => {
   const [jobs, setJobs] = useState([]);
   const [hoveredJob, setHoveredJob] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [jobToEdit, setJobToEdit] = useState(null);
 
   const handleOpenModalClick = () => {
-    setIsModalOpen(true); // Open modal on button click
+    setJobToEdit(null);
+    setIsModalOpen(true);
   };
 
   const handleModalClose = () => {
-    setIsModalOpen(false); // Close modal
+    setIsModalOpen(false);
+    setJobToEdit(null);
   };
 
-  const handleSaveJob = (newJobData) => {
-    setJobs([...jobs, newJobData]); // Add the new job to the jobs list
+  const handleSaveJob = (newJobData, isEdit) => {
+    if (isEdit) {
+      setJobs((prevJobs) =>
+        prevJobs.map((job) => (job._id === newJobData._id ? newJobData : job))
+      );
+    } else {
+      setJobs([...jobs, newJobData]);
+    }
+  };
+
+  const handleEditClick = (job) => {
+    setJobToEdit(job);
+    setIsModalOpen(true);
   };
 
   useEffect(() => {
@@ -35,9 +49,7 @@ const JobsUI = () => {
   }, []);
 
   const handleDeleteJob = async (id) => {
-    const isConfirmed = window.confirm(
-      "Are you sure you want to delete this job?"
-    );
+    const isConfirmed = window.confirm("Are you sure you want to delete this job?");
     if (!isConfirmed) return;
 
     try {
@@ -60,11 +72,12 @@ const JobsUI = () => {
         </button>
       </div>
 
-      {/* Modal for Adding a New Job */}
       <Modal
         isVisible={isModalOpen}
         onClose={handleModalClose}
         onSave={handleSaveJob}
+        isEdit={!!jobToEdit}
+        jobToEdit={jobToEdit}
       />
 
       <div className="grid grid-cols-2 gap-6">
@@ -85,8 +98,7 @@ const JobsUI = () => {
                 <div>
                   <p className="text-sm text-gray-500 flex items-center gap-2">
                     <BsBriefcase />
-                    Type: {job.location.type} • Experience:{" "}
-                    {job.experienceLevel}
+                    Type: {job.location.type} • Experience: {job.experienceLevel}
                   </p>
                   <h2 className="text-xl font-semibold mt-1">{job.title}</h2>
                   <p className="text-gray-700 font-medium">
@@ -99,7 +111,7 @@ const JobsUI = () => {
                   {hoveredJob === job._id && (
                     <div className="absolute right-0 top-6 bg-white shadow-lg rounded-lg border p-2 w-28">
                       <button
-                        // onClick={() => handleEditClick(job)}
+                        onClick={() => handleEditClick(job)}
                         className="block text-gray-700 w-full text-left p-2 hover:bg-gray-100"
                       >
                         Edit
@@ -140,9 +152,7 @@ const JobsUI = () => {
                 <FiCalendar />
                 <p className="ml-2">
                   Application Deadline:{" "}
-                  {new Date(
-                    job.applicationDetails.deadline
-                  ).toLocaleDateString()}
+                  {new Date(job.applicationDetails.deadline).toLocaleDateString()}
                 </p>
               </div>
             </div>

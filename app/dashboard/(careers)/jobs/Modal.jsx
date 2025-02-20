@@ -1,10 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Modal = ({ isVisible, onClose, onSave }) => {
+const Modal = ({ isVisible, onClose, onSave, isEdit, jobToEdit }) => {
   const [formData, setFormData] = useState({
     jobId: "",
     title: "",
@@ -52,9 +52,17 @@ const Modal = ({ isVisible, onClose, onSave }) => {
     },
     keywords: [],
   });
+
+  useEffect(() => {
+    if (isEdit && jobToEdit) {
+      setFormData(jobToEdit);
+    }
+  }, [isEdit, jobToEdit]);
+
   if (!isVisible) {
-    return;
+    return null;
   }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -89,12 +97,16 @@ const Modal = ({ isVisible, onClose, onSave }) => {
 
   const handleSaveClick = async () => {
     try {
-      await axios.post("/api/jobs", formData);
-      onSave(formData);
-      alert("Successfully job circular post");
+      if (isEdit) {
+        await axios.patch(`/api/jobs/${jobToEdit._id}`, formData);
+      } else {
+        await axios.post("/api/jobs", formData);
+      }
+      onSave(formData, isEdit);
+      alert(`Successfully ${isEdit ? "updated" : "added"} job circular post`);
       onClose();
     } catch (error) {
-      toast.error("Error saving job. Please try again.");
+      toast.error(`Error ${isEdit ? "updating" : "saving"} job. Please try again.`);
     }
   };
 
@@ -102,17 +114,12 @@ const Modal = ({ isVisible, onClose, onSave }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <ToastContainer />
       <div className="bg-white rounded-lg shadow-lg w-full max-w-lg h-full max-h-[80vh] flex flex-col">
-        {/* Modal Header */}
         <div className="flex justify-between items-center p-4 border-b">
-          <h2 className="text-xl font-bold">Add New Job</h2>
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
-          >
+          <h2 className="text-xl font-bold">{isEdit ? "Edit Job" : "Add New Job"}</h2>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
             &#10005;
           </button>
         </div>
-
         {/* /* Modal Content (Scrollable) */}
         <div className="p-4 overflow-y-auto flex-grow">
           {/* Job Basic Info */}
@@ -426,7 +433,7 @@ const Modal = ({ isVisible, onClose, onSave }) => {
             onClick={handleSaveClick}
             className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
           >
-            Save Job
+            {isEdit ? "Update Job" : "Save Job"}
           </button>
         </div>
       </div>
