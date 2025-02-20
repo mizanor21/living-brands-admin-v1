@@ -6,7 +6,6 @@ const newsSchema = new mongoose.Schema(
     title: String,
     img: String,
     description: String,
-    isTrending: Boolean,
   },
   { timestamps: true }
 );
