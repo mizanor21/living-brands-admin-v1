@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 
@@ -52,6 +53,7 @@ const MouseMovementCRUD = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+      toast.success("Action successfully complited!")
       if (!res.ok) throw new Error("Failed to save item");
       fetchMouseMovementData();
       setIsModalOpen(false);
