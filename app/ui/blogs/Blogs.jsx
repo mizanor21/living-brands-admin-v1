@@ -19,7 +19,7 @@ const Blogs = () => {
 
   const fetchWorks = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs`)
+      const res = await fetch(`/api/blogs`)
       if (!res.ok) throw new Error("Failed to fetch blogs")
       const data = await res.json()
       setWorks(data)
@@ -33,7 +33,7 @@ const Blogs = () => {
 
     if (confirm) {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs?id=${id}`, {
+        const res = await fetch(`/api/blogs?id=${id}`, {
           method: "DELETE",
         })
         if (!res.ok) throw new Error("Failed to delete blog")

@@ -32,18 +32,10 @@ const NewsItems = ({ data, setData }) => {
   }
 
   const handleEditClick = (item) => {
-    setSelectedItem(item);
-    setValue("title", item.title);
-    setValue("img", item.img);
-    setValue("description", item.description || "");
     setIsModalOpen(true);
   };
 
   const handleAdd = () => {
-    // setSelectedItem(item);
-    // setValue("title", item?.title);
-    // setValue("img", item.img);
-    // setValue("description", item.description || "");
     setIsModalOpen(true);
   };
 
@@ -59,7 +51,7 @@ const NewsItems = ({ data, setData }) => {
     try {
       // Send PATCH request using Axios
       const { data: updatedItem } = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/news-center/${selectedItem._id}`,
+        `/api/news-center/${selectedItem._id}`,
         formData,
         {
           headers: {
@@ -82,18 +74,7 @@ const NewsItems = ({ data, setData }) => {
       if (error.response) {
         // Server responded with a status other than 2xx
         console.error("Error response:", error.response.data);
-        alert(
-          `Failed to update: ${error.response.data.message || "Unknown error"}`
-        );
-      } else if (error.request) {
-        // Request was made but no response received
-        console.error("No response received:", error.request);
-        alert("No response from the server. Please try again later.");
-      } else {
-        // Other errors
-        console.error("Error:", error.message);
-        alert("An error occurred while updating the news item.");
-      }
+        alert("Failed to update news item. Please try again.");}
     }
   };
 
@@ -181,6 +162,20 @@ const NewsItems = ({ data, setData }) => {
                     {errors.img.message}
                   </p>
                 )}
+              </div>
+              <div className="mb-4">
+                <label className="label">
+                  <span className="label-text">Category</span>
+                </label>
+                <select
+                  {...register("category", { required: "Category is required" })}
+                  className="select select-bordered"
+                >
+                  <option value="">Select a category</option>
+                  <option value="Casestudy">Casestudy</option>
+                  <option value="Daily Creativity">Daily Creativity</option>
+                </select>
+                {errors.category && <span className="text-red-500">{errors.category.message}</span>}
               </div>
               <div className="mb-6">
                 <label

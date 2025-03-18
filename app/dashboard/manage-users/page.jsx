@@ -19,7 +19,7 @@ const ManageUser = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/users`
+          `/api/users`
         );
         setUsers(response.data);
       } catch (err) {

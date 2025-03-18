@@ -29,7 +29,7 @@ const WhoWeAre = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/who-we-are`
+          `/api/who-we-are`
         );
         const rawData = response.data[0]; // Assuming response is an array with one object
 
@@ -104,7 +104,7 @@ const WhoWeAre = () => {
 
       // PATCH request with document ID in the URL
       await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/who-we-are/${documentId}`,
+        `/api/who-we-are/${documentId}`,
         transformedData
       );
       setData(updatedData); // Update displayed data with modified data

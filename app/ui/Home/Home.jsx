@@ -18,7 +18,7 @@ const Home = () => {
     const fetchHerosData = async () => {
       try {
         const { data } = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/home`
+          `/api/home`
         );
         setHomes(data || []);
       } catch (error) {

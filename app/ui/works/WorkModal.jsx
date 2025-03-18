@@ -45,7 +45,7 @@ const WorkModal = ({ workId, modalId, updateWork }) => {
       const fetchWorkData = async () => {
         setLoading(true)
         try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/works/${workId}`)
+          const response = await fetch(`/api/works/${workId}`)
           if (!response.ok) {
             throw new Error("Failed to fetch work data")
           }
@@ -121,7 +121,7 @@ const WorkModal = ({ workId, modalId, updateWork }) => {
         img: imageUrl, // Use the Cloudinary URL or the provided URL
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/works/${workId}`, {
+      const response = await fetch(`/api/works/${workId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

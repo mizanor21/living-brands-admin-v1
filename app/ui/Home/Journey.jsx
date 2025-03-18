@@ -16,7 +16,6 @@ const JourneySection = ({ data = {}, id }) => {
   } = useForm({
     defaultValues: {
       title: data.title || "",
-      image: data.image || "",
     },
   });
 
@@ -24,7 +23,6 @@ const JourneySection = ({ data = {}, id }) => {
     // Reset form values when `data` changes
     reset({
       title: data.title || "",
-      image: data.image || "",
     });
   }, [data, reset]);
 
@@ -32,13 +30,12 @@ const JourneySection = ({ data = {}, id }) => {
     try {
       const payload = {
         "journeySection.title": formData.title,
-        "journeySection.image": formData.image,
       };
 
       const headers = { "Content-Type": "application/json" };
 
       const response = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/home/${id}`,
+        `/api/home/${id}`,
         payload,
         { headers }
       );
@@ -80,26 +77,6 @@ const JourneySection = ({ data = {}, id }) => {
                 className="rounded-lg px-5 py-2 border border-b-4 border-[#125b5c] w-full min-h-[100px]"
               />
               {renderError(errors.title)}
-            </div>
-
-            <div className="w-full">
-              <label>
-                Image URL <span className="text-red-600">*</span>
-              </label>
-              <input
-                {...register("image", {
-                  required: "Image URL is required",
-                  pattern: {
-                    value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|svg))$/,
-                    message: "Please enter a valid image URL",
-                  },
-                })}
-                type="url"
-                placeholder="Image URL"
-                aria-invalid={errors.image ? "true" : "false"}
-                className="rounded-lg px-5 py-2 border border-b-4 border-[#125b5c] w-full"
-              />
-              {renderError(errors.image)}
             </div>
           </div>
 

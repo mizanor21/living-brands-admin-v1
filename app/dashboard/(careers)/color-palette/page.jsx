@@ -26,7 +26,7 @@ const ColorPalate = () => {
   const fetchCards = async () => {
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/color-palette`
+        `/api/color-palette`
       );
       setCards(response.data);
     } catch (error) {
@@ -111,7 +111,7 @@ const ColorPalate = () => {
       setCards((prev) => [...prev, { ...newCard, _id: Date.now().toString() }]);
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/color-palette`,
+        `/api/color-palette`,
         newCard
       );
 
@@ -157,7 +157,7 @@ const ColorPalate = () => {
       );
 
       const response = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/color-palette/${formData._id}`,
+        `/api/color-palette/${formData._id}`,
         updatedCard
       );
 
@@ -190,7 +190,7 @@ const ColorPalate = () => {
       setCards((prev) => prev.filter((card) => card._id !== id));
 
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/color-palette/?id=${id}`
+        `/api/color-palette/?id=${id}`
       );
 
       toast.success("Card deleted successfully!");

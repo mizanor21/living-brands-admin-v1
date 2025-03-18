@@ -75,7 +75,7 @@ const CreateWorkModal = ({ modalId, addWork }) => {
         img: imageUrl, // Use the Cloudinary URL
       };
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/works`, {
+      const response = await fetch(`/api/works`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

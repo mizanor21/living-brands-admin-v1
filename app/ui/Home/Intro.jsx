@@ -80,7 +80,7 @@ const Intro = ({ data, id }) => {
 
       // Send PATCH request to update data
       const response = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/home/${id}`,
+        `/api/home/${id}`,
         payload,
         { headers }
       );

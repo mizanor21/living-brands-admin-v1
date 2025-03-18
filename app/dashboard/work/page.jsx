@@ -7,7 +7,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const DashboardWorkPage = () => {
   const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/works`,
+    `/api/works`,
     fetcher
   );
 

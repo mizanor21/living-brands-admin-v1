@@ -19,7 +19,7 @@ const Works = () => {
 
   const fetchWorks = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/works`)
+      const res = await fetch(`/api/works`)
       if (!res.ok) throw new Error("Failed to fetch works")
       const data = await res.json()
       setWorks(data)
@@ -34,7 +34,7 @@ const Works = () => {
 
     if (confirm) {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/works?id=${id}`, {
+        const res = await fetch(`/api/works?id=${id}`, {
           method: "DELETE",
         })
         if (!res.ok) throw new Error("Failed to delete work")

@@ -21,7 +21,7 @@ const Partnership = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/partnership`
+          `/api/partnership`
         );
         setPartnersData(response.data);
       } catch (error) {
@@ -48,7 +48,7 @@ const Partnership = () => {
     if (!confirm("Are you sure you want to delete this partner?")) return;
     try {
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/partnership?id=${id}`
+        `/api/partnership?id=${id}`
       );
       setPartnersData(partnersData.filter((partner) => partner._id !== id));
       toast.success("Partner deleted successfully.");
@@ -77,7 +77,7 @@ const Partnership = () => {
       let response;
       if (editingId) {
         response = await axios.patch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/partnership/${editingId}`,
+          `/api/partnership/${editingId}`,
           payload
         );
         setPartnersData((prevData) =>
@@ -88,7 +88,7 @@ const Partnership = () => {
         toast.success("Partner updated successfully.");
       } else {
         response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/partnership`,
+          `/api/partnership`,
           payload
         );
         setPartnersData([...partnersData, response.data]);

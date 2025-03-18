@@ -14,7 +14,7 @@ const useFetchBrandSolutions = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/brand-solutions`)
+        const response = await axios.get(`/api/brand-solutions`)
         setData(response.data[0])
       } catch (err) {
         setError("Error fetching brand solutions data")
@@ -268,7 +268,7 @@ const BrandSolutions = () => {
   const handleSave = async (updatedData) => {
     try {
       const response = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/brand-solutions/${data._id}`,
+        `/api/brand-solutions/${data._id}`,
         updatedData,
       )
       setData(response.data.data)

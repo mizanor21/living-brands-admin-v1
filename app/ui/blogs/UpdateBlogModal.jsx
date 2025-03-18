@@ -45,7 +45,7 @@ const UpdateBlogModal = ({ workId, modalId, updateWork }) => {
       const fetchWorkData = async () => {
         setLoading(true)
         try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${workId}`)
+          const response = await fetch(`/api/blogs/${workId}`)
           if (!response.ok) {
             throw new Error("Failed to fetch blog data")
           }
@@ -122,7 +122,7 @@ const UpdateBlogModal = ({ workId, modalId, updateWork }) => {
         img: imageUrl, // Use the Cloudinary URL or the provided URL
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/blogs/${workId}`, {
+      const response = await fetch(`/api/blogs/${workId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

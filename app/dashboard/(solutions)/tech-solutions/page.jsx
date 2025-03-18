@@ -15,7 +15,7 @@ const useFetchTechSolutions = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/tech-solutions`)
+        const response = await axios.get(`/api/tech-solutions`)
         setData(response.data[0])
       } catch (err) {
         setError("Error fetching Tech solutions data")
@@ -269,7 +269,7 @@ const TechSolutions = () => {
   const handleSave = async (updatedData) => {
     try {
       const response = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/tech-solutions/${data._id}`,
+        `/api/tech-solutions/${data._id}`,
         updatedData,
       )
       setData(response.data.data)

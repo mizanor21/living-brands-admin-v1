@@ -15,7 +15,7 @@ const useFetchAchievements = () => {
     try {
       setLoading(true); // Start loading before fetching
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/achievements`
+        `/api/achievements`
       );
       setData(response.data);
     } catch (err) {
@@ -201,14 +201,14 @@ const Achievements = () => {
       if (updatedAchievement._id) {
         // Update existing achievement
         await axios.patch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/achievements/${updatedAchievement._id}`,
+          `/api/achievements/${updatedAchievement._id}`,
           updatedAchievement
         );
         toast.success("Achievement successfully updated!");
       } else {
         // Add new achievement
         await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/achievements`,
+          `/api/achievements`,
           updatedAchievement
         );
         toast.success("New achievement added successfully!");
@@ -223,7 +223,7 @@ const Achievements = () => {
   const handleDelete = async (achievementId) => {
     try {
       const res = await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/achievements?id=${achievementId}`
+        `/api/achievements?id=${achievementId}`
       );
       toast.success("Achievement deleted successfully!");
       fetchData(); // Refetch data to update UI after deletion

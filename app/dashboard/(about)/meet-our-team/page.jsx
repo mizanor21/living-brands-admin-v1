@@ -23,7 +23,7 @@ const MeetOurTeam = () => {
     const fetchTeams = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/teams`
+          `/api/teams`
         );
         setTeams(response.data);
       } catch (error) {
@@ -43,7 +43,7 @@ const MeetOurTeam = () => {
 
     try {
       await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/teams?id=${id}`
+        `/api/teams?id=${id}`
       );
       setTeams(teams.filter((team) => team.id !== id));
       toast.success("Team member deleted successfully.");
@@ -105,7 +105,7 @@ const MeetOurTeam = () => {
 
       if (editingId) {
         await axios.patch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/teams/${editingId}`,
+          `/api/teams/${editingId}`,
           { name: editedName, title: editedTitle, image: imageUrl }
         );
 
@@ -119,7 +119,7 @@ const MeetOurTeam = () => {
         toast.success("Team member updated successfully.");
       } else {
         const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/teams`,
+          `/api/teams`,
           { name: editedName, title: editedTitle, image: imageUrl }
         );
 

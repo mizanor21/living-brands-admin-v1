@@ -33,7 +33,7 @@ const Sidebar = () => {
       icon: <MdHome />,
       subItems: [
         { title: "Home", path: "/dashboard/home" },
-        { title: "Slideshow", path: "/dashboard/slideshow" },
+        // { title: "Slideshow", path: "/dashboard/slideshow" },
         { title: "Mouse Movement", path: "/dashboard/mouse-movement" },
       ],
     },
